@@ -1,7 +1,6 @@
 from nicegui import ui
-from website.header import init as header_init
 
-import website.style as style
+from website.header import init as header_init
 
 
 def render():

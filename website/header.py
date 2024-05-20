@@ -7,6 +7,12 @@ HEADER_HTML = (pathlib.Path(__file__).parent / "static" / "header.html").read_te
 STYLE_CSS = (pathlib.Path(__file__).parent / "static" / "style.css").read_text()
 
 
+def init():
+    add_head_html()
+    add_header()
+    add_footer()
+
+
 def add_head_html() -> None:
     """Add the code from header.html and reference style.css."""
     ui.add_head_html(HEADER_HTML + f"<style>{STYLE_CSS}</style>")
@@ -14,7 +20,12 @@ def add_head_html() -> None:
 
 def add_header(menu: Optional[ui.left_drawer] = None) -> None:
     """Create the page header."""
-    menu_items = {"PySect": "/"}
+    menu_items = {
+        "Platter": "/platter",
+        "Slice": "/slice",
+        "Filament": "/filament",
+        "Printer": "/printer",
+    }
     dark_mode = ui.dark_mode(
         value=app.storage.browser.get("dark_mode"),
         on_change=lambda e: ui.run_javascript(
@@ -34,6 +45,8 @@ def add_header(menu: Optional[ui.left_drawer] = None) -> None:
             ui.button(on_click=menu.toggle, icon="menu").props(
                 "flat color=white round"
             ).classes("lg:hidden")
+        with ui.link(target="/").classes("row gap-4 items-center no-wrap mr-auto"):
+            ui.label("PySect")
 
         with ui.row().classes("max-[1050px]:hidden"):
             for title_, target in menu_items.items():
@@ -66,3 +79,8 @@ def add_header(menu: Optional[ui.left_drawer] = None) -> None:
                             title_,
                             on_click=lambda target=target: ui.navigate.to(target),
                         )
+
+
+def add_footer():
+    with ui.footer():
+        ui.label("Copyright (c) 2024 Anonoei")
