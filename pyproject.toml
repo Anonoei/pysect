@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pysect"
+version = "0.0.1"
+description = "A 3D mesh slicer in python"
+dependencies = ["pyboiler_anonoei", "numpy", "matplotlib"]
+requires-python = ">=3.6"
+authors = [
+    {name = "Anonoei", email="dev@anonoei.com"}
+]
+readme = "README.md"
+keywords = ["anonoei"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+
+    "Intended Audience :: Developers",
+
+    "License :: OSI Approved :: MIT License",
+
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/anonoei/pysect"
+Documentation = "https://anonoei.github.io/pysect/"
+Repository = "https://github.com/Anonoei/pysect.git"
+Issues = "https://github.com/Anonoei/pysect/issues"
+Source = "https://github.com/anonoei/pysect"
+
+[project.optional-dependencies]
+dev = ["twine", "build", "black", "bumpver", "pytest", "pdoc3"]
+
+[tool.bumpver]
+current_version = "0.0.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+pre_commit_hook = ""
+post_commit_hook = ""
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"'
+]
+"src/pysect/__init__.py" = ["{version}"]

@@ -1,0 +1,8 @@
+.pytest_cache/
+.vscode/
+dist/
+files/
+src/**
+!src/pysect
+__pycache__/
+.DS_Store

@@ -1,0 +1,16 @@
+<meta name="description"
+    content="NiceGUI is an easy-to-use, Python-based UI framework, which shows up in your web browser. You can create buttons, dialogs, Markdown, 3D scenes, plots and much more." />
+
+<!-- https://realfavicongenerator.net/ -->
+<meta name="msapplication-TileColor" content="#2b5797" />
+<meta name="theme-color" content="#5898d4" />
+
+<script>
+    window.onscroll = () => {
+        if (document.querySelector(".q-dialog__backdrop")) return;
+        const header = document.querySelector(".q-header");
+        if (document.documentElement.scrollTop > 50) header.classList.add("fade");
+        else header.classList.remove("fade");
+    };
+</script>
+<script src="/static/fuse.js@7.0.0"></script>
