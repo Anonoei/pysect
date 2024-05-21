@@ -4,11 +4,13 @@ import pathlib
 import sys
 import os
 
+import numpy
+
 path = pathlib.Path(__file__).parent
 
 
 def install_deps():
-    for dep in ("pysect", "nicegui", "pywebview"):
+    for dep in ("pysect", "nicegui", "pyvista"):
         try:
             importlib.import_module(dep)
         except ModuleNotFoundError:
@@ -24,7 +26,7 @@ def run():
 
     args = parser.parse_args()
     if args.cui:
-        os.system(f"{sys.executable} {path / 'src'/ 'main.py'}")
+        os.system(f"{sys.executable} {path / 'src'/ 'pysect' / 'main.py'}")
     elif args.standalone:
         os.system(f"{sys.executable} {path / 'standalone.py'}")
     else:

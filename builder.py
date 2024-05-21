@@ -11,12 +11,13 @@ import sys
 def run(cmd: str, quiet: bool = False):
     print(f"Running '{cmd}'")
     proc = subprocess.getoutput(cmd)
-    if "No module named" in proc:
+    if not quiet:
+        print(proc)
+    if False and "No module named" in proc:
         cmd_deps()
         run(cmd, quiet)
         return
-    if not quiet:
-        print(proc)
+
 
 def cmd_deps():
     with open("pyproject.toml", "r") as f:

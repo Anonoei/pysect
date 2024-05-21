@@ -1,6 +1,11 @@
+import pathlib
 from nicegui import ui
 
 from website.header import init as header_init
+
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
+import pyvista
 
 
 def render():
@@ -25,3 +30,11 @@ def render():
 
     with ui.footer():
         ui.label("This is the footer")
+
+    with ui.matplotlib().figure as fig:
+        mesh = pyvista.read(
+            pathlib.Path(__file__).parent.parent.parent.parent
+            / "files"
+            / "PiPED 40x100mm.stl"
+        )
+        # mesh.plot()

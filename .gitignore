@@ -2,7 +2,8 @@
 .vscode/
 dist/
 files/
-src/**
+logs/
+src/*
 !src/pysect
 __pycache__/
 .DS_Store
