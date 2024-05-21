@@ -1,5 +1,8 @@
 # pysect
- An object slicer not based on slic3r that you use in your browser
+ A standalone 3D object slicer that you use in your browser
+
+ - [Documentation](https://anonoei.github.io/pysect/)
+ - [PyPI](https://pypi.org/project/pysect/)
 
 # Using pysect
  1. Clone the repository `git clone https://github.com/Anonoei/pysect`
