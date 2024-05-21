@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pysect"
-version = "0.0.1"
-description = "A 3D mesh slicer in python"
+version = "0.0.2"
+description = "A standalone 3D object slicer"
 dependencies = ["pyboiler_anonoei", "numpy", "matplotlib"]
 requires-python = ">=3.6"
 authors = [
@@ -35,7 +35,7 @@ Source = "https://github.com/anonoei/pysect"
 dev = ["twine", "build", "black", "bumpver", "pytest", "pdoc3"]
 
 [tool.bumpver]
-current_version = "0.0.1"
+current_version = "0.0.2"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
