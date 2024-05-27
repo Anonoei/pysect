@@ -9,3 +9,4 @@ ui.run(
     show_welcome_message=False,
     storage_secret="1234",
 )
+print(f"Access PySect at http://127.0.0.1:8328")

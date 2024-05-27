@@ -32,15 +32,17 @@ from .config import config as dflt_conf
 from .primitives.mesh import Mesh
 
 
-class slice:
-    @staticmethod
-    def generate_layers(mesh: Mesh, config=dflt_conf):
-        layer_heights = [(0.0, config.LAYER_HEIGHT)]
-        top = mesh.top()
-        while layer_heights[-1][1] &lt; top:
-            height = layer_heights[-1][1]
-            layer_heights.append((height, height + config.LAYER_HEIGHT))
-        print(f&#34;Found {len(layer_heights)} layers!&#34;)</code></pre>
+def generate_layers(mesh: Mesh, config=dflt_conf):
+    layer_heights = [mesh.bottom()]
+    top = mesh.top()
+    while layer_heights[-1] &lt; top:
+        layer_heights.append(layer_heights[-1] + config.LAYER_HEIGHT)
+    print(f&#34;Found {len(layer_heights)} layers!&#34;)
+
+    for height in layer_heights:
+        polys = mesh.Z2D(height)
+        yield (height, polys)
+    yield</code></pre>
 </details>
 </section>
 <section>
@@ -48,32 +50,9 @@ class slice:
 <section>
 </section>
 <section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pysect.sect.slice.slice"><code class="flex name class">
-<span>class <span class="ident">slice</span></span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class slice:
-    @staticmethod
-    def generate_layers(mesh: Mesh, config=dflt_conf):
-        layer_heights = [(0.0, config.LAYER_HEIGHT)]
-        top = mesh.top()
-        while layer_heights[-1][1] &lt; top:
-            height = layer_heights[-1][1]
-            layer_heights.append((height, height + config.LAYER_HEIGHT))
-        print(f&#34;Found {len(layer_heights)} layers!&#34;)</code></pre>
-</details>
-<h3>Static methods</h3>
-<dl>
-<dt id="pysect.sect.slice.slice.generate_layers"><code class="name flex">
+<dt id="pysect.sect.slice.generate_layers"><code class="name flex">
 <span>def <span class="ident">generate_layers</span></span>(<span>mesh: <a title="pysect.sect.primitives.mesh.Mesh" href="primitives/mesh.html#pysect.sect.primitives.mesh.Mesh">Mesh</a>, config=pysect.sect.config.config)</span>
 </code></dt>
 <dd>
@@ -82,19 +61,22 @@ class slice:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@staticmethod
-def generate_layers(mesh: Mesh, config=dflt_conf):
-    layer_heights = [(0.0, config.LAYER_HEIGHT)]
+<pre><code class="python">def generate_layers(mesh: Mesh, config=dflt_conf):
+    layer_heights = [mesh.bottom()]
     top = mesh.top()
-    while layer_heights[-1][1] &lt; top:
-        height = layer_heights[-1][1]
-        layer_heights.append((height, height + config.LAYER_HEIGHT))
-    print(f&#34;Found {len(layer_heights)} layers!&#34;)</code></pre>
+    while layer_heights[-1] &lt; top:
+        layer_heights.append(layer_heights[-1] + config.LAYER_HEIGHT)
+    print(f&#34;Found {len(layer_heights)} layers!&#34;)
+
+    for height in layer_heights:
+        polys = mesh.Z2D(height)
+        yield (height, polys)
+    yield</code></pre>
 </details>
 </dd>
 </dl>
-</dd>
-</dl>
+</section>
+<section>
 </section>
 </article>
 <nav id="sidebar">
@@ -108,14 +90,9 @@ def generate_layers(mesh: Mesh, config=dflt_conf):
 <li><code><a title="pysect.sect" href="index.html">pysect.sect</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="pysect.sect.slice.slice" href="#pysect.sect.slice.slice">slice</a></code></h4>
+<li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="pysect.sect.slice.slice.generate_layers" href="#pysect.sect.slice.slice.generate_layers">generate_layers</a></code></li>
-</ul>
-</li>
+<li><code><a title="pysect.sect.slice.generate_layers" href="#pysect.sect.slice.generate_layers">generate_layers</a></code></li>
 </ul>
 </li>
 </ul>

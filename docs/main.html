@@ -27,6 +27,7 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import pyvista
+import matplotlib.pyplot as plt
 
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
@@ -34,7 +35,7 @@ from tkinter.filedialog import askopenfilename
 from pyboiler.config import config
 
 import pysect.sect.serial.stl as stl
-import pysect.sect.slice
+import pysect.sect.slice as slice
 
 
 Tk().withdraw()  # we don&#39;t want a full GUI, so keep the root window from appearing
@@ -47,9 +48,23 @@ def main():
     filepath = config().PATH_ROOT / &#34;files&#34; / &#34;PiPED 40x100mm.stl&#34;
     if not filepath:
         exit()
-    mesh = pyvista.read(filepath)
-    mesh.plot()
-    # obj = stl.loadf(filepath).to_mesh()
+    # mesh = pyvista.read(filepath)
+    # mesh.plot()
+    mesh = stl.loadf(filepath).to_mesh()
+
+    ax = plt.gca()
+    x_min, x_max = mesh.left() * 1.5, mesh.right() * 1.5
+    y_min, y_max = mesh.back() * 1.5, mesh.front() * 1.5
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)
+
+    for idx, (height, polys) in enumerate(slice.generate_layers(mesh)):
+        for poly in polys:
+            ax.add_patch(poly)
+        plt.title(f&#34;Layer {idx}: {height:.2f}&#34;)
+        plt.show()
+        plt.close()
+    plt.show()
     # slice.generate_layers(mesh=obj)
     # obj.plot()
 
@@ -81,9 +96,23 @@ if __name__ == &#34;__main__&#34;:
     filepath = config().PATH_ROOT / &#34;files&#34; / &#34;PiPED 40x100mm.stl&#34;
     if not filepath:
         exit()
-    mesh = pyvista.read(filepath)
-    mesh.plot()
-    # obj = stl.loadf(filepath).to_mesh()
+    # mesh = pyvista.read(filepath)
+    # mesh.plot()
+    mesh = stl.loadf(filepath).to_mesh()
+
+    ax = plt.gca()
+    x_min, x_max = mesh.left() * 1.5, mesh.right() * 1.5
+    y_min, y_max = mesh.back() * 1.5, mesh.front() * 1.5
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)
+
+    for idx, (height, polys) in enumerate(slice.generate_layers(mesh)):
+        for poly in polys:
+            ax.add_patch(poly)
+        plt.title(f&#34;Layer {idx}: {height:.2f}&#34;)
+        plt.show()
+        plt.close()
+    plt.show()
     # slice.generate_layers(mesh=obj)
     # obj.plot()</code></pre>
 </details>

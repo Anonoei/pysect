@@ -28,6 +28,7 @@
 </summary>
 <pre><code class="python">from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon
 import numpy as np
 
 
@@ -41,6 +42,25 @@ class Mesh:
     def align(self):
         bottom = self.bottom()
         self.translate(0, 0, -bottom)
+
+    def Z2D(self, z: float):
+        polys = []
+        for triangle in self.vectors:
+            tri_min_z = min((triangle[0][2], triangle[1][2], triangle[2][2]))
+            tri_max_z = max((triangle[0][2], triangle[1][2], triangle[2][2]))
+
+            if tri_min_z &lt; z and tri_max_z &gt; z:
+                continue
+
+            pos_x = (triangle[0][0], triangle[1][0], triangle[2][0])
+            pos_y = (triangle[0][1], triangle[1][1], triangle[2][1])
+
+            pts = np.array(
+                [[pos_x[0], pos_y[0]], [pos_x[1], pos_y[1]], [pos_x[2], pos_y[2]]]
+            )
+            polys.append(Polygon(pts, closed=False))
+
+        return polys
 
     def top(self):
         return max(pos[2] for vector in self.vectors for pos in vector)
@@ -131,6 +151,25 @@ class Mesh:
         bottom = self.bottom()
         self.translate(0, 0, -bottom)
 
+    def Z2D(self, z: float):
+        polys = []
+        for triangle in self.vectors:
+            tri_min_z = min((triangle[0][2], triangle[1][2], triangle[2][2]))
+            tri_max_z = max((triangle[0][2], triangle[1][2], triangle[2][2]))
+
+            if tri_min_z &lt; z and tri_max_z &gt; z:
+                continue
+
+            pos_x = (triangle[0][0], triangle[1][0], triangle[2][0])
+            pos_y = (triangle[0][1], triangle[1][1], triangle[2][1])
+
+            pts = np.array(
+                [[pos_x[0], pos_y[0]], [pos_x[1], pos_y[1]], [pos_x[2], pos_y[2]]]
+            )
+            polys.append(Polygon(pts, closed=False))
+
+        return polys
+
     def top(self):
         return max(pos[2] for vector in self.vectors for pos in vector)
 
@@ -191,6 +230,35 @@ class Mesh:
 </details>
 <h3>Methods</h3>
 <dl>
+<dt id="pysect.sect.primitives.mesh.Mesh.Z2D"><code class="name flex">
+<span>def <span class="ident">Z2D</span></span>(<span>self, z: float)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Z2D(self, z: float):
+    polys = []
+    for triangle in self.vectors:
+        tri_min_z = min((triangle[0][2], triangle[1][2], triangle[2][2]))
+        tri_max_z = max((triangle[0][2], triangle[1][2], triangle[2][2]))
+
+        if tri_min_z &lt; z and tri_max_z &gt; z:
+            continue
+
+        pos_x = (triangle[0][0], triangle[1][0], triangle[2][0])
+        pos_y = (triangle[0][1], triangle[1][1], triangle[2][1])
+
+        pts = np.array(
+            [[pos_x[0], pos_y[0]], [pos_x[1], pos_y[1]], [pos_x[2], pos_y[2]]]
+        )
+        polys.append(Polygon(pts, closed=False))
+
+    return polys</code></pre>
+</details>
+</dd>
 <dt id="pysect.sect.primitives.mesh.Mesh.align"><code class="name flex">
 <span>def <span class="ident">align</span></span>(<span>self)</span>
 </code></dt>
@@ -394,6 +462,7 @@ class Mesh:
 <li>
 <h4><code><a title="pysect.sect.primitives.mesh.Mesh" href="#pysect.sect.primitives.mesh.Mesh">Mesh</a></code></h4>
 <ul class="two-column">
+<li><code><a title="pysect.sect.primitives.mesh.Mesh.Z2D" href="#pysect.sect.primitives.mesh.Mesh.Z2D">Z2D</a></code></li>
 <li><code><a title="pysect.sect.primitives.mesh.Mesh.align" href="#pysect.sect.primitives.mesh.Mesh.align">align</a></code></li>
 <li><code><a title="pysect.sect.primitives.mesh.Mesh.back" href="#pysect.sect.primitives.mesh.Mesh.back">back</a></code></li>
 <li><code><a title="pysect.sect.primitives.mesh.Mesh.bottom" href="#pysect.sect.primitives.mesh.Mesh.bottom">bottom</a></code></li>

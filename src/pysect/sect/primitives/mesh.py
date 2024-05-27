@@ -1,5 +1,6 @@
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon
 import numpy as np
 
 
@@ -13,6 +14,25 @@ class Mesh:
     def align(self):
         bottom = self.bottom()
         self.translate(0, 0, -bottom)
+
+    def Z2D(self, z: float):
+        polys = []
+        for triangle in self.vectors:
+            tri_min_z = min((triangle[0][2], triangle[1][2], triangle[2][2]))
+            tri_max_z = max((triangle[0][2], triangle[1][2], triangle[2][2]))
+
+            if tri_min_z < z and tri_max_z > z:
+                continue
+
+            pos_x = (triangle[0][0], triangle[1][0], triangle[2][0])
+            pos_y = (triangle[0][1], triangle[1][1], triangle[2][1])
+
+            pts = np.array(
+                [[pos_x[0], pos_y[0]], [pos_x[1], pos_y[1]], [pos_x[2], pos_y[2]]]
+            )
+            polys.append(Polygon(pts, closed=False))
+
+        return polys
 
     def top(self):
         return max(pos[2] for vector in self.vectors for pos in vector)

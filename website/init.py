@@ -10,8 +10,10 @@ from .pages import render_slice
 from .pages import render_filament
 from .pages import render_printer
 
-app.add_static_files("/static", pathlib.Path(__file__).parent / "static")
-app.add_static_files("/fonts", pathlib.Path(__file__).parent / "fonts")
+par_path = pathlib.Path(__file__).parent
+app.add_static_files("/static", par_path / "static")
+app.add_static_files("/fonts", par_path / "fonts")
+app.add_static_files("/files", par_path.parent / "files")
 
 
 @app.post("/dark_mode")
